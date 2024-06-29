@@ -1,9 +1,8 @@
-extern crate wee_alloc;
-// Use `wee_alloc` as the global allocator.
-// This reduces the size by ~ a factor 10
-#[cfg(feature = "wee_alloc")]
+/// SAFETY: The runtime environment must be single-threaded WASM.
+#[cfg(feature = "talc")]
+#[cfg(target_arch = "wasm32")]
 #[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+static ALLOCATOR: talc::TalckWasm = unsafe { talc::TalckWasm::new_global() };
 
 pub fn set_panic_hook() {
     // When the `console_error_panic_hook` feature is enabled, we can call the

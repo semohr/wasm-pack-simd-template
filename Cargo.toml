@@ -8,7 +8,7 @@ edition = "2021"
 crate-type = ["cdylib", "rlib"]
 
 [features]
-default = ["wee_alloc", "console_error_panic_hook"]
+default = ["talc", "console_error_panic_hook"]
 
 [dependencies]
 wasm-bindgen = "0.2.84"
@@ -19,12 +19,12 @@ wasm-bindgen = "0.2.84"
 # The `console_error_panic_hook` crate provides better debugging of panics by
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
+# See https://github.com/SFBdragon/talc/blob/master/talc/README_WASM.md
+# wee_alloc should not be used anymore!
+talc = { version = "4.4.1", optional = true }
 
-# For smaller wasm package sice we use wee_alloc global allocator
-# This makes a difference espetially for small packages
-# see https://rustwasm.github.io/book/game-of-life/code-size.html
-wee_alloc = { version = "0.4.5", optional = true }
-
+[build]
+target = "wasm32-unknown-unknown"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.34"
